@@ -1,103 +1,185 @@
-import Image from "next/image";
+'use client';
+
+import React from 'react';
+import { HeroSection } from '@/components/common/hero-section';
+import { SectionTitle } from '@/components/common/section-title';
+import { FeatureCard } from '@/components/common/feature-card';
+import { FAQCard } from '@/components/common/faq-card';
+import { NewsletterSection } from '@/components/common/newsletter-section';
+import { GlassCard } from '@/components/common/glass-card';
+import { 
+  BookOpen, 
+  Sparkles, 
+  Wind, 
+  PenTool, 
+  Activity, 
+  MessageSquare,
+  Heart,
+  Users,
+  Award
+} from 'lucide-react';
+import { useLanguage } from '@/contexts/language-context';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { t } = useLanguage();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  const features = [
+    {
+      title: t.nav.mentalHealthInfo,
+      description: "Read peer-reviewed, easily digestible articles explaining anxiety, depression, burnout, and mental hygiene.",
+      icon: BookOpen,
+      href: "/know-your-mental-health",
+      color: "primary" as const,
+    },
+    {
+      title: t.nav.selfAssessment,
+      description: "Take clinically validated screening self-assessments (PHQ-9, GAD-7) to understand your current symptom levels.",
+      icon: Sparkles,
+      href: "/self-assessment",
+      color: "secondary" as const,
+    },
+    {
+      title: t.nav.relaxZone,
+      description: "Decompress with custom breathing timers, somatic grounding visual exercises, and soothing soundscapes.",
+      icon: Wind,
+      href: "/relax",
+      color: "accent" as const,
+    },
+    {
+      title: t.nav.journal,
+      description: "Log your thoughts, achievements, and worries inside an encrypted, private digital diary.",
+      icon: PenTool,
+      href: "/journal",
+      color: "primary" as const,
+    },
+    {
+      title: t.nav.moodTracker,
+      description: "Monitor your emotional changes and analyze triggers using our daily mood-logging chart tool.",
+      icon: Activity,
+      href: "/mood-tracker",
+      color: "secondary" as const,
+    },
+    {
+      title: t.nav.aiCompanion,
+      description: "Speak to a warm, empathetic AI chatbot programmed to offer active listening, mindfulness tips, and guidance.",
+      icon: MessageSquare,
+      href: "/ai-companion",
+      color: "accent" as const,
+    }
+  ];
+
+  const faqs = [
+    {
+      question: "Is Sahanaya completely free?",
+      answer: "Yes, Sahanaya is 100% free of charge. It is developed and sponsored by the Leo Club of Pannipitiya Paradise as a public community service project to address mental wellness in Sri Lanka."
+    },
+    {
+      question: "Is my personal data secure and confidential?",
+      answer: "Absolutely. Sahanaya is designed with a privacy-first approach. You can use all core features (Relax Zone, Articles, Assessments) without registering. If you choose to log your journal or mood, it is securely stored and is never shared with third parties."
+    },
+    {
+      question: "Can Sahanaya replace regular therapy or clinical treatment?",
+      answer: "No, Sahanaya does not replace clinical therapy, psychiatry, or hospital services. It is designed to act as an educational and peer-support toolkit. If you are experiencing serious symptoms or a mental crisis, please check our Emergency Help page immediately for professional helpline contacts."
+    },
+    {
+      question: "How can I volunteer or support the Leo Club Sahanaya project?",
+      answer: "We welcome support! You can sign up through our Volunteer page or contact the Leo Club of Pannipitiya Paradise directly. Peer support, translations, and technical development contributions are highly valued."
+    }
+  ];
+
+  return (
+    <div className="flex flex-col w-full">
+      {/* Hero Section */}
+      <HeroSection />
+
+      {/* Feature Section */}
+      <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <SectionTitle 
+          title="Designed for Your Inner Peace" 
+          subtitle="Explore our selection of free, confidential digital tools built to assist your day-to-day mental wellbeing."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          {features.map((feature, idx) => (
+            <FeatureCard
+              key={idx}
+              title={feature.title}
+              description={feature.description}
+              icon={feature.icon}
+              href={feature.href}
+              color={feature.color}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* About Club Section */}
+      <section className="py-16 bg-muted/30 border-y border-border/20 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="flex flex-col gap-6 items-start text-left">
+              <SectionTitle 
+                title="About the Initiative" 
+                subtitle="Sahanaya is created by Pannipitiya Paradise Leos to help Sri Lankan youth and working professionals manage stress and access resources."
+                align="left"
+              />
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                As Leos, our mission is to provide leadership, experience, and opportunity through community service. Recognizing the rising pressures on university students, employees, and healthcare workers, the Leo Club of Pannipitiya Paradise initiated Sahanaya to establish a bridge to professional clinical mental healthcare while supplying daily mindfulness habits.
+              </p>
+              
+              <div className="grid grid-cols-3 gap-4 w-full mt-4">
+                <GlassCard hoverable={false} className="p-4 flex flex-col gap-1 items-center justify-center text-center">
+                  <Heart className="h-5 w-5 text-red-500" />
+                  <span className="text-sm font-bold text-foreground">100% Free</span>
+                  <span className="text-[10px] text-muted-foreground">Always</span>
+                </GlassCard>
+                <GlassCard hoverable={false} className="p-4 flex flex-col gap-1 items-center justify-center text-center">
+                  <Users className="h-5 w-5 text-primary" />
+                  <span className="text-sm font-bold text-foreground">For All</span>
+                  <span className="text-[10px] text-muted-foreground">Sri Lankans</span>
+                </GlassCard>
+                <GlassCard hoverable={false} className="p-4 flex flex-col gap-1 items-center justify-center text-center">
+                  <Award className="h-5 w-5 text-secondary-foreground dark:text-secondary" />
+                  <span className="text-sm font-bold text-foreground">Leo Led</span>
+                  <span className="text-[10px] text-muted-foreground">Pannipitiya Paradise</span>
+                </GlassCard>
+              </div>
+            </div>
+            
+            {/* Visual representation */}
+            <div className="w-full flex items-center justify-center">
+              <GlassCard hoverable={false} className="p-8 border border-border bg-gradient-to-br from-primary/5 via-card to-card flex flex-col gap-4 text-center max-w-sm">
+                <div className="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto text-lg font-bold">
+                  S
+                </div>
+                <span className="text-base font-bold text-foreground">"It's Okay Not To Be Okay."</span>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Start your journey toward self-care, monitor emotional trends, write down your thoughts, or seek helpline contacts. We are with you.
+                </p>
+              </GlassCard>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 sm:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <SectionTitle 
+          title="Frequently Asked Questions" 
+          subtitle="Clear answers regarding the platform services, user anonymity, and clinical support pathways."
+        />
+        <div className="flex flex-col gap-4 mt-8">
+          {faqs.map((faq, idx) => (
+            <FAQCard 
+              key={idx} 
+              question={faq.question} 
+              answer={faq.answer} 
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <NewsletterSection />
     </div>
   );
 }
